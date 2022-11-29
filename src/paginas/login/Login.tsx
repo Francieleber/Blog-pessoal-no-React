@@ -1,21 +1,69 @@
-import React from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import { Grid, Typography, TextField, Button } from '@material-ui/core';
 import {Box} from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Login.css';
+import Userlogin from '../../models/Userlogin';
+import useLocalStorage from 'react-use-localstorage';
+import { login } from '../../services/Service';
+import { AlertTitle } from '@material-ui/lab';
 
 function Login() {
+    
+   /*
+   A maior parte dos Hooks precisarao de uma variavel para acessar o seu valor e uma funcao para modificar os seus dados
+   
+   1- Criaremos um Hook useState do tipo userLogin difinindo os seus valores iniciais 
+   2-metode recuperar informacoes do usuario
+   3-chamar o metodo dentro do TextField
+   4-Criaremos o hook useLocalStorage para 
+*/
+
+const navigate =useNavigate()
+const[token,setToken]= useLocalStorage('token')
+const [userLogin,setUserLogin]=useState<Userlogin>({
+    id:0,
+    usuario:'',
+    senha:'',
+    token:''
+})
+
+function updateModel(e: ChangeEvent<HTMLInputElement>){
+    setUserLogin({
+        ...userLogin,
+        [e.target.name]:e.target.value
+    })
+}
+
+useEffect(()=> {
+    if(token!= ''){
+        navigate('/home')
+    }
+},[token])
+async function onSubmit(e:ChangeEvent<HTMLFormElement>){
+e.preventDefault()
+try{
+    await login ('/usuarios/logar',userLogin,setToken)
+    alert('usuario logado com sucesso!')
+}catch(erro){
+    alert('Incorreto! tente novamente')
+}
+}
 
     return (
+        <>
         <Grid container direction='row' justifyContent='center' alignItems='center'>
             <Grid alignItems='center' xs={6}>
                 <Box paddingX={20}>
-                    <form>
+                    <form onSubmit={onSubmit}>
                         <Typography variant='h3' gutterBottom color='textPrimary' component='h3' align='center' className='textos1'>Entrar</Typography>
-                        <TextField id='usuario' label='usuário' variant='outlined' name='usuario' margin='normal' fullWidth />
-                        <TextField id='senha' label='senha' variant='outlined' name='senha' margin='normal' type='password'fullWidth />
+
+                        <TextField value={userLogin.usuario}  onChange={(e:ChangeEvent<HTMLInputElement>) => updateModel(e)} id='usuario' label='usuário' variant='outlined' name='usuario' margin='normal' fullWidth />
+
+                        <TextField value={userLogin.senha} onChange={(e:ChangeEvent<HTMLInputElement>)=> updateModel(e)}   id='senha' label='senha' variant='outlined' name='senha' margin='normal' type='password'fullWidth />
+
                         <Box marginTop={2} textAlign='center'>
-                            
+                           
                                 <Button type='submit' variant='contained' color='primary'>
                                     Logar
                                 </Button>
@@ -34,6 +82,7 @@ function Login() {
 
             </Grid>
         </Grid>
+        </>
     );
 }
 

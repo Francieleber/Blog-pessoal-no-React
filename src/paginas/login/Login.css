@@ -1,9 +1,9 @@
 .textos1{
-    font-weight: bold;
+    font-weight: bold !important;
  }
  
  .imagem{
-     background-image: url(https://i.imgur.com/d5bMdDJ.jpg);
+     background-image: url(https://i.pinimg.com/originals/90/1d/4f/901d4f5b1887ee2b380e3ce212fd19c8.jpg);
      background-repeat: no-repeat;
      width: 100vh;
      min-height: 100vh;
