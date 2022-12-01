@@ -16,7 +16,9 @@ function Login() {
    1- Criaremos um Hook useState do tipo userLogin difinindo os seus valores iniciais 
    2-metode recuperar informacoes do usuario
    3-chamar o metodo dentro do TextField
-   4-Criaremos o hook useLocalStorage para 
+   4-Criaremos o hook useLocalStorage para armagenar o token e vamos trazer da Api
+   5-Finalizaremos o metodo onsubmit ,fazendo a comunicaçao com a Api e armazenando o token 
+   6- Por fim utilizaremos o Hook useEffect,que vai verificar o token e redirecionar para a pagina /home ,utilizaremos o hook usenavigate
 */
 
 const navigate =useNavigate()
@@ -39,6 +41,7 @@ useEffect(()=> {
     if(token!= ''){
         navigate('/home')
     }
+    //redireciona paginas
 },[token])
 async function onSubmit(e:ChangeEvent<HTMLFormElement>){
 e.preventDefault()
