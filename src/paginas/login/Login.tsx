@@ -24,10 +24,10 @@ function Login() {
 const navigate =useNavigate()
 const[token,setToken]= useLocalStorage('token')
 const [userLogin,setUserLogin]=useState<Userlogin>({
-    id:0,
+
     usuario:'',
     senha:'',
-    token:''
+    
 })
 
 function updateModel(e: ChangeEvent<HTMLInputElement>){
@@ -46,7 +46,7 @@ useEffect(()=> {
 async function onSubmit(e:ChangeEvent<HTMLFormElement>){
 e.preventDefault()
 try{
-    await login ('/usuarios/logar',userLogin,setToken)
+    await login ('/auth/logar',userLogin,setToken)
     alert('usuario logado com sucesso!')
 }catch(erro){
     alert('Incorreto! tente novamente')
