@@ -14,6 +14,9 @@ import CadastroTema from './componentes/temas/cadastrarTema/CadastroTema';
 import CadastroPost from './componentes/postagens/cadastroPost/CadastroPost';
 import DeletarPostagem from './componentes/postagens/deletarPostagem/DeletarPostagem';
 import DeletarTema from './componentes/temas/deletarTema/DeletarTema';
+import { Store } from '@mui/icons-material';
+import { Provider } from 'react-redux';
+import store from './store/Store';
 
 
 
@@ -21,6 +24,7 @@ function App() {
   return (
 
     <>
+    <Provider store={store}>
     <Router>
     <Navbar />
       <Routes>
@@ -39,6 +43,7 @@ function App() {
        </Routes>                                                                                                                                                                                                                                                                         
       <Footer />/
     </Router>
+   </Provider>
 
     </>
 

@@ -5,17 +5,21 @@ import './CadastroTema.css';
 import useLocalStorage from 'react-use-localstorage';
 import Tema from '../../../models/Tema';
 import { buscaId, post, put } from '../../../services/Service';
+import { TokenState } from '../../../store/tokens/TokenReducer';
+import { useSelector } from 'react-redux';
+
 
 
 function CadastroTema() {
     let navigate = useNavigate();
     const { id } = useParams<{id: string}>();
-    const [token, setToken] = useLocalStorage('token');
+    const token = useSelector<TokenState, TokenState["tokens"]>(
+        (state) => state.tokens
+      );
     const [tema, setTema] = useState<Tema>({
         id: 0,
         descricao: ''
     })
-
     useEffect(() => {
         if (token == "") {
             alert("Você precisa estar logado")

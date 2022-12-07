@@ -6,11 +6,17 @@ import { Box } from "@mui/material";
 import TabPostagem from "../componentes/postagens/tabpostagem/TabPostagem";
 import useLocalStorage from "react-use-localstorage";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { TokenState } from "../store/tokens/TokenReducer";
+import ModalPostagem from "../componentes/postagens/modalPostagem/ModalPostagem";
+
 
 function Home() {
 
     let navigate = useNavigate();
-    const [token, setToken] = useLocalStorage('token');
+    const token = useSelector<TokenState, TokenState["tokens"]>(
+        (state) => state.tokens
+      );
     
     useEffect(() => {
       if (token == "") {
@@ -29,6 +35,7 @@ function Home() {
                     </Box>
                     <Box display="flex" justifyContent="center">
                         <Box marginRight={1}>
+                            <ModalPostagem />
                         </Box>
                         <Button variant="outlined" style={{ borderColor: "white", backgroundColor: "#3F51B5", color: "white" }}>Ver Postagens</Button>
                     </Box>

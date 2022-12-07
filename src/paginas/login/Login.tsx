@@ -7,6 +7,8 @@ import Userlogin from '../../models/Userlogin';
 import useLocalStorage from 'react-use-localstorage';
 import { login } from '../../services/Service';
 import { AlertTitle } from '@material-ui/lab';
+import { useDispatch } from 'react-redux';
+import { addToken } from '../../store/tokens/Action';
 
 function Login() {
     
@@ -21,14 +23,17 @@ function Login() {
    6- Por fim utilizaremos o Hook useEffect,que vai verificar o token e redirecionar para a pagina /home ,utilizaremos o hook usenavigate
 */
 
-const navigate =useNavigate()
-const[token,setToken]= useLocalStorage('token')
-const [userLogin,setUserLogin]=useState<Userlogin>({
-
-    usuario:'',
-    senha:'',
+let navigate = useNavigate();
+const dispatch = useDispatch();
+const [token, setToken] = useState('');
+const [userLogin, setUserLogin] = useState<Userlogin>(
+    {
+        
+        usuario: '',
+        senha: '',
     
-})
+    }
+    )
 
 function updateModel(e: ChangeEvent<HTMLInputElement>){
     setUserLogin({
@@ -37,12 +42,14 @@ function updateModel(e: ChangeEvent<HTMLInputElement>){
     })
 }
 
-useEffect(()=> {
-    if(token!= ''){
+useEffect(()=>{
+    if(token != ''){
+        dispatch(addToken(token));
         navigate('/home')
+
+
     }
-    //redireciona paginas
-},[token])
+}, [token])
 async function onSubmit(e:ChangeEvent<HTMLFormElement>){
 e.preventDefault()
 try{
