@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { TokenState } from "../store/tokens/TokenReducer";
 import ModalPostagem from "../componentes/postagens/modalPostagem/ModalPostagem";
+import { toast } from "react-toastify";
 
 
 function Home() {
@@ -20,7 +21,17 @@ function Home() {
     
     useEffect(() => {
       if (token == "") {
-          alert("Você precisa estar logado")
+        toast.info('🦄 voce precisa estar logado!', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            });
+            
           navigate("/login")
   
       }

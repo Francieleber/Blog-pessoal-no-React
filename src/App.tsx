@@ -17,6 +17,8 @@ import DeletarTema from './componentes/temas/deletarTema/DeletarTema';
 import { Store } from '@mui/icons-material';
 import { Provider } from 'react-redux';
 import store from './store/Store';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -25,6 +27,7 @@ function App() {
 
     <>
     <Provider store={store}>
+      <ToastContainer/>
     <Router>
     <Navbar />
       <Routes>

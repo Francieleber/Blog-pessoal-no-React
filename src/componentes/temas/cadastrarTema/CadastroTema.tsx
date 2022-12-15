@@ -7,6 +7,7 @@ import Tema from '../../../models/Tema';
 import { buscaId, post, put } from '../../../services/Service';
 import { TokenState } from '../../../store/tokens/TokenReducer';
 import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 
 
@@ -62,7 +63,17 @@ function CadastroTema() {
                         'Authorization': token
                     }
                 })
-                alert('Tema atualizado com sucesso');
+                
+                toast.info(' tema atualizado com sucesso🦄 !', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    });
             } else {
                 post(`/tema`, tema, setTema, {
                     headers: {

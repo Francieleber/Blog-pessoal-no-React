@@ -9,6 +9,7 @@ import useLocalStorage from 'react-use-localstorage';
 import { useNavigate } from 'react-router-dom'
 import { TokenState } from '../../../store/tokens/TokenReducer';
 import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 function ListaPostagem() {
   const [posts, setPosts] = useState<Postagem[]>([])
@@ -18,7 +19,18 @@ function ListaPostagem() {
   );
   useEffect(() => {
     if (token == "") {
-      alert("Você precisa estar logado")
+      
+      toast.info('🤬 voce precisa estar logado!', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+        
       navigate("/login")
 
     }

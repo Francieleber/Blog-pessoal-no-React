@@ -9,6 +9,7 @@ import { login } from '../../services/Service';
 import { AlertTitle } from '@material-ui/lab';
 import { useDispatch } from 'react-redux';
 import { addToken } from '../../store/tokens/Action';
+import { toast } from 'react-toastify';
 
 function Login() {
     
@@ -54,7 +55,17 @@ async function onSubmit(e:ChangeEvent<HTMLFormElement>){
 e.preventDefault()
 try{
     await login ('/auth/logar',userLogin,setToken)
-    alert('usuario logado com sucesso!')
+    
+    toast(' ❤️ usuario logado com sucesso', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
 }catch(erro){
     alert('Incorreto! tente novamente')
 }
